@@ -4,6 +4,7 @@ The customer picks how to receive a one-time code. Unregistered policies get con
 
 - **Starts from:** [1. Policy search](01-policy-search.md) when a policy is found.
 - **Hands off to:** [3. OTP code verification](03-otp-verification.md) once the code is sent.
+- **Returns to:** [1. Policy search](01-policy-search.md) when a contract-number search finds a policy that is already registered.
 
 ```mermaid
 flowchart TD
@@ -11,6 +12,7 @@ flowchart TD
     B -->|Phone or email| C[Portal reads contact info on the policy]
     B -->|Contract number + sale date| D{Phone or email on file?}
     D -->|Yes| E[Policy already registered - search again by phone or email]
+    E --> S([Back to policy search flow])
     D -->|No| F[Customer enters name, phone, and email - all required]
     F --> P[Portal updates policy via API call to back end]
     P --> C

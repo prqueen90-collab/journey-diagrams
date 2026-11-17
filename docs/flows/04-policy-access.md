@@ -1,9 +1,9 @@
-# 4. Product dashboard
+# 4. Policy access after verification
 
-Once verified, the customer lands on the product dashboard and sees the policies tied to how they searched and the contact they verified.
+Once verified, the customer lands on the product dashboard. It shows the policies tied to how they searched and the contact they verified. The dashboard is the starting point for intent-based flows, such as starting a request or filing a claim.
 
 - **Starts from:** [3. OTP code verification](03-otp-verification.md) once the customer is verified.
-- **Hands off to:** not yet mapped (what the customer can do on the dashboard).
+- **Hands off to:** "Start a request" or "File a claim" from the product dashboard (neither mapped yet).
 
 ```mermaid
 flowchart TD
@@ -13,9 +13,12 @@ flowchart TD
     B -->|Contract number + sale date| E[Use only the policy that was searched]
     C --> V[Keep only policies that also have the phone or email the code was sent to]
     D --> V
-    V --> F[Customer lands on product dashboard]
+    V --> F[Customer lands on product dashboard - starting point]
     E --> F
-    F --> G[Dashboard lists the policies - 1 or many]
+    F --> G[Each policy shows its product details: brand, model number, product description, product category, plan start date, plan end date]
+    G --> H{What does the customer want to do?}
+    H -->|Start a request| I([Start a request flow - not yet mapped])
+    H -->|File a claim| J([File a claim flow - not yet mapped])
 ```
 
 ## Confirmed rules
@@ -26,10 +29,12 @@ flowchart TD
 - Policies found by phone can have the same email address or different ones.
 - The dashboard shows only policies tied to the phone or email the code was actually sent to.
 - A contract number + sale date search shows only that 1 policy, even if the customer's details are on other policies too.
+- Each policy shows the product details on it: brand, model number, product description, product category, plan start date and plan end date.
+- The dashboard has two calls to action: "Start a request" and "File a Claim". Each starts its own flow.
 
 ## Critical and high risks
 
-First pass for this flow. These are not in the gaps and security risks doc yet.
+First pass for this flow.
 
 | ID | Risk | Severity |
 | --- | --- | --- |
@@ -44,5 +49,8 @@ Full list, with mitigations and every open gap: [Gaps and security risks](https:
 
 ## Open questions
 
+- Are "Start a request" and "File a Claim" shown on each policy, or once for the whole dashboard with the customer picking a policy afterwards?
+- Are the CTAs shown for every policy, or only for some, such as policies whose plan end date hasn't passed?
+- Are there other intents on the dashboard besides these two?
 - Is the policy list built on the server from the verified session alone?
-- How long does the verified session last, and what can the customer do from the dashboard? This is the next flow to map.
+- How long does the verified session last?

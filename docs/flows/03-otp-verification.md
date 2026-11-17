@@ -3,7 +3,7 @@
 The customer enters the one-time code.
 
 - **Starts from:** [2. OTP routing and registration](02-otp-routing.md) once the code is sent.
-- **Hands off to:** [4. Product dashboard](04-product-dashboard.md) once the customer is verified.
+- **Hands off to:** [4. Policy access after verification](04-policy-access.md) once the customer is verified.
 - **Exits to:** the call center when the customer can't get the code.
 
 ```mermaid

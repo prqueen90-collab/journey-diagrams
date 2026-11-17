@@ -32,6 +32,7 @@ flowchart TD
 - The "no contact on file" path happens only for searches by contract number + sale date.
 - No contact on file: the customer enters name, phone and email (all required). The portal updates the policy through an API call to the back end, then continues to OTP.
 - Phone or email on file (contract number + sale date search): the policy is already registered, so the customer goes straight to OTP using the contact details on the policy, the same as a phone or email search. They are not asked to search again.
+- Sending a code to the real customer's phone or email after a contract number + sale date search is expected. Only someone with access to that phone or email can get the code; anyone else is not verified and is sent to the call center (see [3. OTP code verification](03-otp-verification.md)).
 - The policy is updated before OTP verification. This is flagged as a critical risk below.
 
 ## Critical and high risks
@@ -46,4 +47,3 @@ Full list, with mitigations and every open gap: [Gaps and security risks](https:
 
 - Should the policy update move to after OTP verification, and should a second identity check be added on the contract path?
 - Are contacts masked in every response, including when the portal reads the contact info on the policy?
-- What is the recovery path for customers who can't use the contact details on file?

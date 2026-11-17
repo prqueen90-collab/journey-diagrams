@@ -8,7 +8,7 @@ The customer picks how to receive a one-time code. Unregistered policies get con
 ```mermaid
 flowchart TD
     A([Policy found - from policy search flow]) --> B{How did the customer search?}
-    B -->|Phone or email| C[Portal reads contact info on the policy]
+    B -->|Phone or email| C[Portal reads contact info on the matched policies]
     B -->|Contract number + sale date| D{Phone or email on file?}
     D -->|Yes| C
     D -->|No| F[Customer enters name, phone, and email - all required]
@@ -17,7 +17,7 @@ flowchart TD
     C --> G{Phone on file?}
     C --> H{Email on file?}
     G -->|Yes| I[Offer call and SMS]
-    H -->|Yes| J[Offer email]
+    H -->|Yes| J[Offer email - dropdown when the matched policies have different emails]
     G -->|No| K[Customer picks a delivery method]
     H -->|No| K
     I --> K
@@ -28,6 +28,7 @@ flowchart TD
 ## Confirmed rules
 
 - The customer is offered OTP methods based on the contact data on the policy, not on how they searched. A phone on file means call and SMS. An email on file means email.
+- A phone or email search can match several policies. When those policies have different email addresses, the customer picks which email to use from a dropdown.
 - The "no contact on file" path happens only for searches by contract number + sale date.
 - No contact on file: the customer enters name, phone and email (all required). The portal updates the policy through an API call to the back end, then continues to OTP.
 - Phone or email on file (contract number + sale date search): the policy is already registered, so the customer goes straight to OTP using the contact details on the policy, the same as a phone or email search. They are not asked to search again.
@@ -46,3 +47,4 @@ Full list, with mitigations and every open gap: [Gaps and security risks](https:
 - Should the policy update move to after OTP verification, and should a second identity check be added on the contract path?
 - Are contacts masked in every response, including when the portal reads the contact info on the policy?
 - What is the recovery path for customers who can't use the contact details on file?
+- When an email search matches several policies with different phone numbers, is there a dropdown for the phone numbers too?

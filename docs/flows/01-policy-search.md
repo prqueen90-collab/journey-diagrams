@@ -30,6 +30,7 @@ flowchart TD
 - The captcha runs automatically. If it fails, the customer must tick a checkbox.
 - Continue stays disabled until the captcha is cleared.
 - The customer searches by phone, by email, or by contract number + sale date.
+- "Contract number" and "certificate number" are the same identifier. These flows use "contract number".
 - After 10 failed searches, the customer is blocked for 30 minutes.
 
 ## Critical and high risks

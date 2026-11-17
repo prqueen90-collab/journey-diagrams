@@ -3,7 +3,7 @@
 Once verified, the customer lands on the product dashboard. It shows the policies tied to how they searched and the contact they verified. The dashboard is the starting point for intent-based flows, such as starting a request or filing a claim.
 
 - **Starts from:** [3. OTP code verification](03-otp-verification.md) once the customer is verified.
-- **Hands off to:** whatever the dashboard's call to action starts, labeled "Start a request" or "File a Claim" (not mapped yet).
+- **Hands off to:** the customer's choice on the product dashboard: the call to action ("Start a request" or "File a Claim"), the policy dashboard, the claims dashboard, or the claim tracking page (none mapped yet).
 
 ```mermaid
 flowchart TD
@@ -16,9 +16,11 @@ flowchart TD
     V --> F[Customer lands on product dashboard - starting point]
     E --> F
     F --> G[Each policy shows its product details: brand, model number, product description, product category, plan start date, plan end date]
-    G --> H{One CTA - which label does it show?}
-    H -->|Start a request| I([Start a request flow - not yet mapped])
-    H -->|File a Claim| J([File a claim flow - not yet mapped])
+    G --> H{What does the customer choose?}
+    H -->|One CTA button - labeled Start a request or File a Claim| I([CTA flow - not yet mapped])
+    H -->|Manage policy| J([Policy dashboard - update one policy at a time, no bulk changes - mapped later])
+    H -->|See claims history| K([Claims dashboard - all claim history across the policies shown on the product dashboard])
+    H -->|Track my claim link under the policy information| L([Claim tracking page - claim status and request history timeline - mapped later])
 ```
 
 ## Confirmed rules
@@ -31,6 +33,10 @@ flowchart TD
 - A contract number + sale date search shows only that 1 policy, even if the customer's details are on other policies too.
 - Each policy shows the product details on it: brand, model number, product description, product category, plan start date and plan end date.
 - There is one call to action (CTA). Its label reads either "Start a request" or "File a Claim". It is not two separate buttons.
+- "Manage policy" takes the customer to the policy dashboard. It is one dashboard where the customer updates one policy at a time. There are no bulk changes across policies. That journey will be mapped later.
+- "See claims history" takes the customer to the claims dashboard. It shows all claim history across the same policies as the product dashboard: those found by the search and tied to the phone or email the code was sent to.
+- Each policy's information has a "Track my claim" link under it. It leads to the claim tracking page, not the claims dashboard.
+- The claim tracking page shows the claim status and the claim request history as a timeline: the date submitted, and status content that tells the customer what their current status is. That journey will be mapped later.
 
 ## Critical and high risks
 
@@ -53,5 +59,5 @@ Full list, with mitigations and every open gap: [Gaps and security risks](https:
 - Is the CTA shown on each policy, or once for the whole dashboard with the customer picking a policy afterwards?
 - Does each label start its own flow, or do both lead into the same flow?
 - Are there other labels besides these two?
-- Is the policy list built on the server from the verified session alone?
+- When the customer has several policies, how do they choose which one to manage: from the policy they clicked on the product dashboard, or by picking one on the policy dashboard? (For when the policy dashboard is mapped.)- Is the policy list built on the server from the verified session alone?
 - How long does the verified session last?

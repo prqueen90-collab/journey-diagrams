@@ -3,7 +3,7 @@
 The customer enters the one-time code.
 
 - **Starts from:** [2. OTP routing and registration](02-otp-routing.md) once the code is sent.
-- **Hands off to:** the next flow after the customer is verified (not yet mapped).
+- **Hands off to:** [4. Product dashboard](04-product-dashboard.md) once the customer is verified.
 
 ```mermaid
 flowchart TD
@@ -43,4 +43,3 @@ Full list, with mitigations and every open gap: [Gaps and security risks](https:
 
 - What are the limits on wrong codes and resends, and what lockout applies?
 - Are these limits enforced on the server?
-- What happens after the customer is verified? This is the next flow to map.

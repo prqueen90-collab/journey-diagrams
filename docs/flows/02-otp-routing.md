@@ -4,15 +4,13 @@ The customer picks how to receive a one-time code. Unregistered policies get con
 
 - **Starts from:** [1. Policy search](01-policy-search.md) when a policy is found.
 - **Hands off to:** [3. OTP code verification](03-otp-verification.md) once the code is sent.
-- **Returns to:** [1. Policy search](01-policy-search.md) when a contract-number search finds a policy that is already registered.
 
 ```mermaid
 flowchart TD
     A([Policy found - from policy search flow]) --> B{How did the customer search?}
     B -->|Phone or email| C[Portal reads contact info on the policy]
     B -->|Contract number + sale date| D{Phone or email on file?}
-    D -->|Yes| E[Policy already registered - search again by phone or email]
-    E --> S([Back to policy search flow])
+    D -->|Yes| C
     D -->|No| F[Customer enters name, phone, and email - all required]
     F --> P[Portal updates policy via API call to back end]
     P --> C
@@ -32,7 +30,7 @@ flowchart TD
 - The customer is offered OTP methods based on the contact data on the policy, not on how they searched. A phone on file means call and SMS. An email on file means email.
 - The "no contact on file" path happens only for searches by contract number + sale date.
 - No contact on file: the customer enters name, phone and email (all required). The portal updates the policy through an API call to the back end, then continues to OTP.
-- Phone or email on file: the customer is told the policy is already registered and asked to search again by phone or email (back to [1. Policy search](01-policy-search.md)).
+- Phone or email on file (contract number + sale date search): the policy is already registered, so the customer goes straight to OTP using the contact details on the policy, the same as a phone or email search. They are not asked to search again.
 - The policy is updated before OTP verification. This is flagged as a critical risk below.
 
 ## Critical and high risks
